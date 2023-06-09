@@ -38,24 +38,11 @@ const signIn = async (req,res) =>{
     } catch(err){
         return res.status(404).json({error: err.message})
     }
-    // db.User.findOne({email:req.body.email}, (err,foundUser) =>{
-    //     if(err){
-    //         return res.status(404).json({error: err.message})
-    //     }else{
-    //         if(foundUser){
-    //             const validLogin = bcrypt.compareSync(req.body.password, foundUser.password)
-    //             if(validLogin){
-    //                 return res.status(200).json({foundUser})
-    //             }else{
-    //                 return res.status(404).json({error: 'Log in failed'})
-    //             }
-    //         }
-    //     }
-    // })
 }
 
 const signOut = (req,res) =>{
     req.session.destroy()
+    console.log("Signed out successfully")
 }
 
 const create = (req,res) =>{
