@@ -2,25 +2,41 @@ const db = require('../models')
 const bcrypt = require('bcrypt')
 const session = require('express-session')
 
-const signUp = (req,res) =>{
+const signUp = async (req,res) =>{
     const salt = bcrypt.genSaltSync(10)
     req.body.password = bcrypt.hashSync(req.body.password, salt)
-    db.User.findOne({username:req.body.username}, (err,userExists) =>{
-        if(err){
-            res.status(404).json({error:err.message})
-        }
-        if(userExists){
+    try{
+        const userFound = await db.User.findOne({email:req.body.email})
+        console.log('User found',userFound)
+        if(userFound){
             res.redirect('/spotussy/login')
         } else {
-            db.User.create(req.body, (err,createdUser) =>{
-                if(err){
-                    return res.status(404).json({error:err.message})
-                } else {
-                    return res.status(200).json({user: createdUser})
-                }
-            })
+            try{
+                const createdUser = await db.User.create(req.body)
+                return res.status(200).json({user: createdUser})
+            } catch(err){
+                return res.status(404).json({error:err})
+            }
         }
-    })
+    } catch(err){
+        return res.status(404).json({error:err})
+    }
+    // db.User.findOne({username:req.body.username}, (err,userExists) =>{
+    //     if(err){
+    //         res.status(404).json({error:err.message})
+    //     }
+    //     if(userExists){
+    //         res.redirect('/spotussy/login')
+    //     } else {
+    //         db.User.create(req.body, (err,createdUser) =>{
+    //             if(err){
+    //                 return res.status(404).json({error:err.message})
+    //             } else {
+    //                 return res.status(200).json({user: createdUser})
+    //             }
+    //         })
+    //     }
+    // })
 }
 
 const signIn = (req,res) =>{
