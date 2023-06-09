@@ -3,6 +3,6 @@ const router = express.Router();
 
 const ctrls = require('../controllers')
 
-router.get('/spotussy', ctrls.spotussys.index);
+router.get('/', ctrls.spotussys.index);
 
 module.exports = router

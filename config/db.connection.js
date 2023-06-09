@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const connectionStr = process.env.MONGODB_URI || 'http://localhost:3000/'
+const connectionStr = process.env.MONGODB_URI || 'mongodb://localhost:27017/spotussyDB'
 
 mongoose.connect(connectionStr)
 

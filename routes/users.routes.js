@@ -3,16 +3,16 @@ const router = express.Router();
 
 const ctrls = require('../controllers')
 
-router.post('/spotussy/signup', ctrls.users.signUp); 
+router.post('/signup', ctrls.users.signUp); 
 
-router.post('/spotussy/signin', ctrls.users.signIn);
+router.post('/signin', ctrls.users.signIn);
 
-router.get('/spotussy/signout', ctrls.users.signOut);
+router.get('/signout', ctrls.users.signOut);
 
-router.post('/spotussy', ctrls.users.create); 
+router.post('/', ctrls.users.create); 
 
-router.put('/spotussy/:id', ctrls.users.update);
+router.put('/:id', ctrls.users.update);
 
-router.delete('/spotussy/:id', ctrls.users.destroy);
+router.delete('/:id', ctrls.users.destroy);
 
 module.exports = router
